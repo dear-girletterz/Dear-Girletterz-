@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Curhat Space</title>
@@ -12,26 +12,22 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background: linear-gradient(135deg,#eaf2ff,#f7f7fb,#ffeef3);
+  background:linear-gradient(135deg,#eaf2ff,#f7f7fb,#ffeef3);
 }
 
 .card{
   text-align:center;
-  padding:30px;
 }
 
 h1{
   color:#2c3e50;
-  font-size:24px;
 }
 
 p{
   color:#666;
-  font-size:13px;
 }
 
 button{
-  margin-top:15px;
   padding:10px 18px;
   border:none;
   border-radius:10px;
@@ -39,59 +35,18 @@ button{
   color:white;
   cursor:pointer;
 }
-button:hover{
-  background:#3b5c8a;
-}
-  </head>
 </style>
-.nav{
-  position:fixed;
-  top:10px;
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(255,255,255,0.8);
-  backdrop-filter: blur(8px);
-  padding:8px 12px;
-  border-radius:12px;
-  display:flex;
-  gap:12px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
-  font-size:13px;
-}
-
-.nav a{
-  text-decoration:none;
-  color:#2c3e50;
-  font-weight:500;
-}
-
-.nav a:hover{
-  color:#4a6fa5;
-}
+</head>
 
 <body>
-  <div class="nav">
-  <a href="index.html">🏠 Home</a>
-  <a href="curhat.html">💌 Curhat</a>
-  <a href="cek.html">💬 Cek</a>
-  <a href="dashboard.html">🧑‍💻 Admin</a>
-  </div>
 
 <div class="card">
-  <h1>Dear, Girletterz 💌</h1>
-  <p>Mungkin aku nggak selalu punya jawaban yang terbaik,
-  <p>tapi aku bakal berusaha pahamin semua perasaan kalian! 
-  <p>🍃 tempat cerita tanpa di-judge 🍃<p>
-                                    
-
-  <button onclick="masuk()">masuk</button>
+  <h1>Dear,Girletterz 💌</h1>
+  <p>Mungkin aku nggak selalu punya jawaban yang awesome, 
+  <p>tapi aku bakal berusaha buat pahamin semua perasaan kalian kok!
+  </p>🍃 tempat cerita tanpa di-judge 🍃</p>
+  <button onclick="location.href='curhat.html'">masuk</button>
 </div>
-
-<script>
-function masuk(){
-  window.location.href = "curhat.html";
-}
-</script>
 
 </body>
 </html>
