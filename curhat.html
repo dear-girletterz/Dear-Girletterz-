@@ -78,6 +78,16 @@ const db = getFirestore(app);
 
 window.kirimCurhat = async function(){
 
+window.copyKode = function(kode){
+  const tempInput = document.createElement("input");
+  document.body.appendChild(tempInput);
+  tempInput.value = kode;
+  tempInput.select();
+  document.execCommand("copy");
+  document.body.removeChild(tempInput);
+
+  alert("kode tersalin 💖");
+  }
   let isi = document.getElementById("curhat").value;
   if(!isi) return;
 
