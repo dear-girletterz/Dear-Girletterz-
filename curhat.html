@@ -8,21 +8,50 @@
 body{
   margin:0;
   font-family:Arial;
-  background:linear-gradient(135deg,#eaf2ff,#f7f7fb,#ffeef3);
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
+  overflow:hidden;
+
+  background:linear-gradient(135deg,#bcdcff,#ffd6e7,#e6dcff);
 }
 
-/* 🌐 NAVBAR */
+/* ✨ LAYER GLOW */
+body::before{
+  content:"";
+  position:absolute;
+  width:320px;
+  height:320px;
+  background:#ffffff;
+  opacity:0.25;
+  filter:blur(90px);
+  border-radius:50%;
+  top:10%;
+  left:10%;
+}
+
+body::after{
+  content:"";
+  position:absolute;
+  width:350px;
+  height:350px;
+  background:#ffb6d9;
+  opacity:0.25;
+  filter:blur(100px);
+  border-radius:50%;
+  bottom:10%;
+  right:10%;
+}
+
+/* 🌐 NAVBAR GLASS */
 .nav{
   position:fixed;
   top:12px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(255,255,255,0.7);
-  backdrop-filter: blur(10px);
+  background:rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
   padding:8px 14px;
   border-radius:14px;
   display:flex;
@@ -41,14 +70,16 @@ body{
   color:#4a6fa5;
 }
 
-/* 💌 CARD */
+/* 💌 CARD GLASS */
 .card{
-  background:white;
+  background:rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
   padding:25px;
-  border-radius:15px;
+  border-radius:18px;
   width:340px;
   text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  z-index:1;
 }
 
 textarea{
@@ -58,6 +89,7 @@ textarea{
   border-radius:10px;
   border:1px solid #ddd;
   outline:none;
+  background:rgba(255,255,255,0.8);
 }
 
 button{
@@ -72,23 +104,25 @@ button{
 }
 
 button:hover{
-  transform:scale(1.03);
+  transform:scale(1.05);
 }
 
-/* 💖 RESULT BOX */
+/* 💖 RESULT */
 .kode{
   margin-top:12px;
   font-size:13px;
   line-height:1.6;
+  color:#333;
 }
 
 .kode-box{
-  background:#f3f6ff;
+  background:rgba(255,255,255,0.7);
   padding:10px;
   border-radius:10px;
   font-weight:bold;
   letter-spacing:1px;
   margin-top:8px;
+  backdrop-filter: blur(8px);
 }
 </style>
 </head>
@@ -107,7 +141,7 @@ button:hover{
 <div class="card">
   <h3>💌 Tulis Curhat</h3>
 
-  <textarea id="curhat" placeholder="keluarin semuanya lewat tulisan aja, fighting! ^O^"></textarea>
+  <textarea id="curhat" placeholder="tulis isi hati..."></textarea>
 
   <button onclick="kirimCurhat()">kirim</button>
 
@@ -119,12 +153,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDzPenfYo2c7Q6UNin895TuZhuCj4qWE0k",
+  apiKey: "AIzaSyDzPenfYo2",
   authDomain: "dear-girletterz-a2c37.firebaseapp.com",
-  projectId: "dear-girletterz-a2c37",
-  storageBucket: "dear-girletterz-a2c7.firebasestorage.app",
-  messagingSenderId: "1023676296781",
-  appId: "1:1023676296781:web:c31b2ddfe4ce1675c9f604"
+  projectId: "dear-girletterz-a2c37"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -155,15 +186,14 @@ window.kirimCurhat = async function(){
   document.getElementById("curhat").value="";
 }
 
-window.copyKode = function(kode){
-  const temp = document.createElement("input");
-  document.body.appendChild(temp);
-  temp.value = kode;
-  temp.select();
-  document.execCommand("copy");
-  document.body.removeChild(temp);
-
-  alert("kode tersalin 💖");
+/* ✨ MODERN COPY (REPLACE yang lama) */
+window.copyKode = async function(kode){
+  try{
+    await navigator.clipboard.writeText(kode);
+    alert("kode tersalin 💖");
+  }catch(e){
+    alert("gagal copy 😭");
+  }
 }
 </script>
 
