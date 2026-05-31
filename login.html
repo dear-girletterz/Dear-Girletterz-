@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Admin 🔐</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+
+  background:linear-gradient(135deg,#bcdcff,#ffd6e7,#e6dcff);
+}
+
+/* ✨ glow layer */
+body::before{
+  content:"";
+  position:absolute;
+  width:320px;
+  height:320px;
+  background:#ffffff;
+  opacity:0.25;
+  filter:blur(90px);
+  border-radius:50%;
+  top:10%;
+  left:10%;
+}
+
+body::after{
+  content:"";
+  position:absolute;
+  width:350px;
+  height:350px;
+  background:#ffb6d9;
+  opacity:0.25;
+  filter:blur(100px);
+  border-radius:50%;
+  bottom:10%;
+  right:10%;
+}
+
+/* 💌 CARD */
+.card{
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(12px);
+  padding:25px;
+  border-radius:18px;
+  width:300px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  z-index:1;
+}
+
+h3{
+  color:#2c3e50;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  border:1px solid #ddd;
+  outline:none;
+  background:rgba(255,255,255,0.8);
+}
+
+button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#4a6fa5;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+small{
+  color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h3>🔐 Admin Login</h3>
+  <small>Girletterz Dashboard Access</small>
+
+  <input id="email" placeholder="email admin">
+  <input id="pass" type="password" placeholder="password">
+
+  <button onclick="login()">masuk</button>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDzPenfYo2",
+  authDomain: "dear-girletterz-a2c37.firebaseapp.com",
+  projectId: "dear-girletterz-a2c37"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.login = async function(){
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("pass").value;
+
+  try{
+    await signInWithEmailAndPassword(auth, email, pass);
+
+    alert("login sukses 💖");
+    window.location.href = "dashboard.html";
+
+  }catch(e){
+    alert("login gagal ❌ cek email/password");
+  }
+}
+</script>
+
+</body>
+</html>
