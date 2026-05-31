@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Kirim Curhat</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background: linear-gradient(135deg,#eaf2ff,#f7f7fb,#ffeef3);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  width:340px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+textarea{
+  width:100%;
+  height:130px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:10px;
+}
+
+button{
+  margin-top:10px;
+  padding:10px 16px;
+  border:none;
+  border-radius:10px;
+  background:#4a6fa5;
+  color:white;
+}
+
+.kode{
+  margin-top:10px;
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h3>💌 Tulis Curhat</h3>
+
+  <textarea id="curhat" placeholder="tulis isi hati kamu..."></textarea>
+
+  <button onclick="kirimCurhat()">kirim</button>
+
+  <p class="kode" id="hasil"></p>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDzPenfYo2c7Q6UNin895TuZhuCj4qWE0k",
+  authDomain: "dear-girletterz-a2c37.firebaseapp.com",
+  projectId: "dear-girletterz-a2c37",
+  storageBucket: "dear-girletterz-a2c37.firebasestorage.app",
+  messagingSenderId: "1023676296781",
+  appId: "1:1023676296781:web:c31b2ddfe4ce1675c9f604"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.kirimCurhat = async function(){
+
+  let isi = document.getElementById("curhat").value;
+  if(!isi) return;
+
+  let kode = "GLTZ-" + Math.floor(1000 + Math.random()*9000);
+
+  await setDoc(doc(db,"curhat",kode),{
+    isi:isi,
+    balasan:"",
+    tanggal:new Date()
+  });
+
+  document.getElementById("hasil").innerText =
+  "terkirim ✓ kode: " + kode;
+
+  document.getElementById("curhat").value="";
+}
+</script>
+
+</body>
+</html>
