@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Cek Balasan 🪧</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background: linear-gradient(135deg,#eaf2ff,#f7f7fb,#ffeef3);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  width:320px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+input{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+button{
+  margin-top:10px;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#4a6fa5;
+  color:white;
+  cursor:pointer;
+}
+
+.result{
+  margin-top:15px;
+  font-size:13px;
+  text-align:left;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h3>💬 Cek Balasan</h3>
+
+  <input id="kode" placeholder="masukkan kode GLTZ">
+
+  <button onclick="cek()">lihat</button>
+
+  <div class="result" id="hasil"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDzPenfYo2c7Q6UNin895TuZhuCj4qWE0k",
+  authDomain: "dear-girletterz-a2c37.firebaseapp.com",
+  projectId: "dear-girletterz-a2c37",
+  storageBucket: "dear-girletterz-a2c7.firebasestorage.app",
+  messagingSenderId: "1023676296781",
+  appId: "1:1023676296781:web:c31b2ddfe4ce1675c9f604"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.cek = async function(){
+  let kode = document.getElementById("kode").value;
+
+  const snap = await getDoc(doc(db,"curhat",kode));
+
+  if(!snap.exists()){
+    document.getElementById("hasil").innerHTML =
+      "❌ kode tidak ditemukan";
+    return;
+  }
+
+  let data = snap.data();
+
+  document.getElementById("hasil").innerHTML = `
+    <b>💌 Curhat:</b><br>${data.isi}<br><br>
+    <b>💬 Balasan:</b><br>${data.balasan || "belum ada balasan"}
+  `;
+}
+</script>
+
+</body>
+</html>
