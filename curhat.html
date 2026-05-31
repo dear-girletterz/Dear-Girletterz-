@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Kirim Curhat</title>
+<title>Curhat</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background: linear-gradient(135deg,#eaf2ff,#f7f7fb,#ffeef3);
-  min-height:100vh;
+  background:linear-gradient(135deg,#eaf2ff,#f7f7fb,#ffeef3);
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -26,68 +26,39 @@ body{
 
 textarea{
   width:100%;
-  height:130px;
+  height:120px;
+  padding:10px;
   border-radius:10px;
   border:1px solid #ddd;
-  padding:10px;
 }
 
 button{
   margin-top:10px;
-  padding:10px 16px;
+  padding:10px;
   border:none;
   border-radius:10px;
   background:#4a6fa5;
   color:white;
+  cursor:pointer;
 }
 
 .kode{
   margin-top:10px;
-  font-size:12px;
-}
-</style>
-  .nav{
-  position:fixed;
-  top:10px;
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(255,255,255,0.8);
-  backdrop-filter: blur(8px);
-  padding:8px 12px;
-  border-radius:12px;
-  display:flex;
-  gap:12px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
   font-size:13px;
 }
-
-.nav a{
-  text-decoration:none;
-  color:#2c3e50;
-  font-weight:500;
-}
-
-.nav a:hover{
-  color:#4a6fa5;
-}
+</style>
 </head>
 
 <body>
-  <div class="nav">
-  <a href="index.html">🏠 Home</a>
-  <a href="curhat.html">💌 Curhat</a>
-  <a href="cek.html">💬 Cek</a>
-  <a href="dashboard.html">🧑‍💻 Admin</a>
-  </div>
 
 <div class="card">
   <h3>💌 Tulis Curhat</h3>
 
-  <textarea id="curhat" placeholder="tulis isi hati kamu..."></textarea>
+  <textarea id="curhat" placeholder="keluarin semuanya lewat tulisan aja, fighting! ^O^"></textarea>
 
   <button onclick="kirimCurhat()">kirim</button>
 
-  <p class="kode" id="hasil"></p>
+  <p id="hasil" class="kode"></p>
 </div>
 
 <script type="module">
@@ -98,7 +69,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDzPenfYo2c7Q6UNin895TuZhuCj4qWE0k",
   authDomain: "dear-girletterz-a2c37.firebaseapp.com",
   projectId: "dear-girletterz-a2c37",
-  storageBucket: "dear-girletterz-a2c37.firebasestorage.app",
+  storageBucket: "dear-girletterz-a2c7.firebasestorage.app",
   messagingSenderId: "1023676296781",
   appId: "1:1023676296781:web:c31b2ddfe4ce1675c9f604"
 };
@@ -107,17 +78,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.kirimCurhat = async function(){
-
-window.copyKode = function(kode){
-  const tempInput = document.createElement("input");
-  document.body.appendChild(tempInput);
-  tempInput.value = kode;
-  tempInput.select();
-  document.execCommand("copy");
-  document.body.removeChild(tempInput);
-
-  alert("kode tersalin 💖");
-  }
   let isi = document.getElementById("curhat").value;
   if(!isi) return;
 
@@ -130,35 +90,23 @@ window.copyKode = function(kode){
   });
 
   document.getElementById("hasil").innerHTML = `
-  <div style="margin-top:10px;">
-    <p>💖 curhat terkirim!</p>
-
-    <div style="
-      background:#f3f6ff;
-      padding:10px;
-      border-radius:10px;
-      margin-top:8px;
-      font-weight:bold;
-    ">
-      ${kode}
-    </div>
-
-    <button onclick="copyKode('${kode}')" 
-      style="
-        margin-top:8px;
-        padding:8px 12px;
-        border:none;
-        border-radius:8px;
-        background:#4a6fa5;
-        color:white;
-        cursor:pointer;
-      ">
-      copy kode
-    </button>
-  </div>
-`;
+    💖 terkirim!<br>
+    kode kamu: <b>${kode}</b>
+    <br><br>
+    <button onclick="copyKode('${kode}')">copy kode</button>
+  `;
 
   document.getElementById("curhat").value="";
+}
+
+window.copyKode = function(kode){
+  const temp = document.createElement("input");
+  document.body.appendChild(temp);
+  temp.value = kode;
+  temp.select();
+  document.execCommand("copy");
+  document.body.removeChild(temp);
+  alert("kode tersalin 💖");
 }
 </script>
 
