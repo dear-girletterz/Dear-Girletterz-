@@ -15,12 +15,40 @@ body{
   align-items:center;
 }
 
+/* 🌐 NAVBAR */
+.nav{
+  position:fixed;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  padding:8px 14px;
+  border-radius:14px;
+  display:flex;
+  gap:18px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  font-size:14px;
+  z-index:999;
+}
+
+.nav a{
+  text-decoration:none;
+  color:#2c3e50;
+}
+
+.nav a:hover{
+  color:#4a6fa5;
+}
+
+/* 💌 CARD */
 .card{
   background:white;
   padding:25px;
   border-radius:15px;
   width:320px;
   text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
 input{
@@ -28,6 +56,7 @@ input{
   padding:10px;
   border-radius:10px;
   border:1px solid #ddd;
+  outline:none;
 }
 
 button{
@@ -37,21 +66,33 @@ button{
   border-radius:10px;
   background:#4a6fa5;
   color:white;
+  cursor:pointer;
 }
 
 .result{
   margin-top:15px;
   font-size:13px;
+  text-align:left;
+  line-height:1.5;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🌐 NAVBAR -->
+<div class="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="curhat.html">💌 Curhat</a>
+  <a href="cek.html">💬 Cek</a>
+  <a href="dashboard.html">🧑‍💻 Admin</a>
+</div>
+
+<!-- 💌 CARD -->
 <div class="card">
   <h3>💬 Cek Balasan</h3>
 
-  <input id="kode" placeholder="masukkan kode">
+  <input id="kode" placeholder="masukkan kode GLTZ">
 
   <button onclick="cek()">lihat</button>
 
@@ -80,15 +121,15 @@ window.cek = async function(){
   const snap = await getDoc(doc(db,"curhat",kode));
 
   if(!snap.exists()){
-    document.getElementById("hasil").innerHTML="❌ tidak ditemukan";
+    document.getElementById("hasil").innerHTML="❌ kode tidak ditemukan";
     return;
   }
 
   let data = snap.data();
 
   document.getElementById("hasil").innerHTML = `
-    💌 ${data.isi}<br><br>
-    💬 ${data.balasan || "belum ada balasan"}
+    💌 <b>Curhat:</b><br>${data.isi}<br><br>
+    💬 <b>Balasan:</b><br>${data.balasan || "belum ada balasan"}
   `;
 }
 </script>
