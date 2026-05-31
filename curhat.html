@@ -15,6 +15,33 @@ body{
   align-items:center;
 }
 
+/* 🌐 NAVBAR */
+.nav{
+  position:fixed;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  padding:8px 14px;
+  border-radius:14px;
+  display:flex;
+  gap:18px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  font-size:14px;
+  z-index:999;
+}
+
+.nav a{
+  text-decoration:none;
+  color:#2c3e50;
+}
+
+.nav a:hover{
+  color:#4a6fa5;
+}
+
+/* 💌 CARD */
 .card{
   background:white;
   padding:25px;
@@ -30,6 +57,7 @@ textarea{
   padding:10px;
   border-radius:10px;
   border:1px solid #ddd;
+  outline:none;
 }
 
 button{
@@ -40,17 +68,42 @@ button{
   background:#4a6fa5;
   color:white;
   cursor:pointer;
+  transition:0.2s;
 }
 
+button:hover{
+  transform:scale(1.03);
+}
+
+/* 💖 RESULT BOX */
 .kode{
-  margin-top:10px;
+  margin-top:12px;
   font-size:13px;
+  line-height:1.6;
+}
+
+.kode-box{
+  background:#f3f6ff;
+  padding:10px;
+  border-radius:10px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-top:8px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🌐 NAVBAR -->
+<div class="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="curhat.html">💌 Curhat</a>
+  <a href="cek.html">💬 Cek</a>
+  <a href="dashboard.html">🧑‍💻 Admin</a>
+</div>
+
+<!-- 💌 CARD -->
 <div class="card">
   <h3>💌 Tulis Curhat</h3>
 
@@ -91,8 +144,11 @@ window.kirimCurhat = async function(){
 
   document.getElementById("hasil").innerHTML = `
     💖 terkirim!<br>
-    kode kamu: <b>${kode}</b>
-    <br><br>
+
+    <div class="kode-box">
+      ${kode}
+    </div>
+
     <button onclick="copyKode('${kode}')">copy kode</button>
   `;
 
@@ -106,6 +162,7 @@ window.copyKode = function(kode){
   temp.select();
   document.execCommand("copy");
   document.body.removeChild(temp);
+
   alert("kode tersalin 💖");
 }
 </script>
