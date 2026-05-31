@@ -1,115 +1,112 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Tempat Curhat Girletterz 💖</title>
+<meta charset="UTF-8">
+<title>Tempat Curhat Girletterz 💖</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: linear-gradient(135deg, #ffe6f0, #e6f0ff);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #ffd6e8, #d6e6ff, #fff0f5);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 20px;
-      width: 300px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+.card {
+  background: rgba(255,255,255,0.9);
+  padding: 25px;
+  border-radius: 25px;
+  width: 320px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
 
-    h2 {
-      color: #ff69b4;
-    }
+h2 {
+  color: #ff4fa3;
+}
 
-    textarea {
-      width: 100%;
-      height: 120px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      padding: 10px;
-      resize: none;
-    }
+textarea {
+  width: 100%;
+  height: 120px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  padding: 10px;
+  outline: none;
+}
 
-    button {
-      margin-top: 10px;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 10px;
-      background: #ff69b4;
-      color: white;
-      cursor: pointer;
-    }
+button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ff6fb1, #8aa8ff);
+  color: white;
+  cursor: pointer;
+}
 
-    button:hover {
-      background: #ff85c1;
-    }
+button:hover {
+  opacity: 0.9;
+}
 
-    .kode {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #444;
-    }
-  </style>
+.kode {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #555;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h2>💌 Curhat ke Girletterz</h2>
+<div class="card">
+  <h2>💌 Curhat ke Girletterz</h2>
 
-    <textarea id="curhat" placeholder="Tulis semua unek-unek kamu di sini..."></textarea>
+  <textarea id="curhat" placeholder="Tulis curhat kamu..."></textarea>
 
-    <button onclick="kirimCurhat()">Kirim 💖</button>
+  <button onclick="kirimCurhat()">Kirim 💖</button>
 
-    <p class="kode" id="hasil"></p>
-  </div>
+  <p class="kode" id="hasil"></p>
+</div>
 
-  <!-- FIREBASE -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDzPenfYo2c7Q6UNin895TuZhuCj4qWE0k",
-      authDomain: "dear-girletterz-a2c37.firebaseapp.com",
-      projectId: "dear-girletterz-a2c37",
-      storageBucket: "dear-girletterz-a2c37.firebasestorage.app",
-      messagingSenderId: "1023676296781",
-      appId: "1:1023676296781:web:c31b2ddfe4ce1675c9f604"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyDzPenfYo2c7Q6UNin895TuZhuCj4qWE0k",
+  authDomain: "dear-girletterz-a2c37.firebaseapp.com",
+  projectId: "dear-girletterz-a2c37",
+  storageBucket: "dear-girletterz-a2c7.firebasestorage.app",
+  messagingSenderId: "1023676296781",
+  appId: "1:1023676296781:web:c31b2ddfe4ce1675c9f604"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    window.kirimCurhat = async function () {
-      let isi = document.getElementById("curhat").value;
+window.kirimCurhat = async function () {
+  let isi = document.getElementById("curhat").value;
 
-      if (!isi) {
-        alert("Isi dulu curhatnya ya 💖");
-        return;
-      }
+  if (!isi) return;
 
-      let kode = "GLTZ-" + Math.floor(1000 + Math.random() * 9000);
+  let kode = "GLTZ-" + Math.floor(1000 + Math.random() * 9000);
 
-      await setDoc(doc(db, "curhat", kode), {
-        isi: isi,
-        balasan: "",
-        tanggal: new Date()
-      });
+  await setDoc(doc(db, "curhat", kode), {
+    isi: isi,
+    balasan: "",
+    tanggal: new Date()
+  });
 
-      document.getElementById("hasil").innerText =
-        "💖 Curhat terkirim! Kode kamu: " + kode;
+  document.getElementById("hasil").innerText =
+    "💖 Curhat terkirim! Kode: " + kode;
 
-      document.getElementById("curhat").value = "";
-    }
-  </script>
+  document.getElementById("curhat").value = "";
+}
+</script>
 
 </body>
 </html>
