@@ -14,40 +14,40 @@ body{
   align-items:center;
   overflow:hidden;
 
-  background:linear-gradient(135deg,#bcdcff,#ffd6e7,#e6dcff);
+  background:linear-gradient(135deg,#cfe8ff,#e8f0ff,#f5f7ff);
 }
 
-/* ✨ glow layer */
+/* 🌊 glow layer */
 body::before{
   content:"";
-  position:absolute;
-  width:320px;
-  height:320px;
+  position:fixed;
+  width:450px;
+  height:450px;
   background:#ffffff;
-  opacity:0.25;
-  filter:blur(90px);
+  opacity:0.35;
+  filter:blur(130px);
   border-radius:50%;
-  top:10%;
-  left:10%;
+  top:-80px;
+  left:-80px;
 }
 
 body::after{
   content:"";
-  position:absolute;
-  width:350px;
-  height:350px;
-  background:#ffb6d9;
+  position:fixed;
+  width:500px;
+  height:500px;
+  background:#a9c9ff;
   opacity:0.25;
-  filter:blur(100px);
+  filter:blur(140px);
   border-radius:50%;
-  bottom:10%;
-  right:10%;
+  bottom:-100px;
+  right:-100px;
 }
 
-/* 💌 CARD */
+/* 💙 CARD */
 .card{
-  background:rgba(255,255,255,0.7);
-  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(16px);
   padding:25px;
   border-radius:18px;
   width:300px;
@@ -67,7 +67,6 @@ input{
   border-radius:10px;
   border:1px solid #ddd;
   outline:none;
-  background:rgba(255,255,255,0.8);
 }
 
 button{
@@ -75,7 +74,7 @@ button{
   padding:10px;
   border:none;
   border-radius:10px;
-  background:#4a6fa5;
+  background:#5f88c7;
   color:white;
   cursor:pointer;
   transition:0.2s;
@@ -95,7 +94,7 @@ small{
 
 <div class="card">
   <h3>🔐 Admin Login</h3>
-  <small>Girletterz Dashboard Access</small>
+  <small>Girletterz Dashboard</small>
 
   <input id="email" placeholder="email admin">
   <input id="pass" type="password" placeholder="password">
@@ -109,9 +108,10 @@ import { getAuth, signInWithEmailAndPassword }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDzPenfYo2",
+  apiKey: "AIzaSyDzPenfYo2c7Q6UNin895TuZhuCj4qWE0k",
   authDomain: "dear-girletterz-a2c37.firebaseapp.com",
-  projectId: "dear-girletterz-a2c37"
+  projectId: "dear-girletterz-a2c37",
+  appId: "1:1023676296781:web:c31b2ddfe4ce1675c9f604"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -124,11 +124,11 @@ window.login = async function(){
   try{
     await signInWithEmailAndPassword(auth, email, pass);
 
-    alert("login sukses 💖");
+    alert("login sukses 💙");
     window.location.href = "dashboard.html";
 
   }catch(e){
-    alert("login gagal ❌ cek email/password");
+    alert("login gagal ❌ cek email/password atau Firebase Auth belum aktif");
   }
 }
 </script>
