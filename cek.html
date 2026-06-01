@@ -8,56 +8,53 @@
 body{
   margin:0;
   font-family:Arial;
-  height:100vh;
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   overflow:hidden;
 
-  background:linear-gradient(135deg,#bcdcff,#ffd6e7,#e6dcff);
+  background:linear-gradient(135deg,#cfe8ff,#e8f0ff,#f5f7ff);
 }
 
-/* ✨ LAYER GLOW */
-body::before{
+/* 🌊 glow layer */
+body::before, body::after{
   content:"";
-  position:absolute;
-  width:320px;
-  height:320px;
-  background:#ffffff;
-  opacity:0.25;
-  filter:blur(90px);
+  position:fixed;
+  width:420px;
+  height:420px;
   border-radius:50%;
-  top:10%;
-  left:10%;
+  filter:blur(140px);
+  opacity:0.28;
+  z-index:0;
+}
+
+body::before{
+  background:#ffffff;
+  top:-100px;
+  left:-100px;
 }
 
 body::after{
-  content:"";
-  position:absolute;
-  width:350px;
-  height:350px;
-  background:#ffb6d9;
-  opacity:0.25;
-  filter:blur(100px);
-  border-radius:50%;
-  bottom:10%;
-  right:10%;
+  background:#a9c9ff;
+  bottom:-120px;
+  right:-120px;
 }
 
-/* 🌐 NAVBAR GLASS */
+/* 🌐 NAV */
 .nav{
   position:fixed;
   top:12px;
   left:50%;
   transform:translateX(-50%);
   background:rgba(255,255,255,0.6);
-  backdrop-filter: blur(12px);
+  backdrop-filter:blur(14px);
   padding:8px 14px;
   border-radius:14px;
   display:flex;
   gap:18px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
   font-size:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
   z-index:999;
 }
 
@@ -67,36 +64,40 @@ body::after{
 }
 
 .nav a:hover{
-  color:#4a6fa5;
+  color:#5f88c7;
 }
 
-/* 💌 CARD GLASS */
+/* 💙 CARD */
 .card{
-  background:rgba(255,255,255,0.7);
-  backdrop-filter: blur(12px);
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(16px);
   padding:25px;
   border-radius:18px;
   width:340px;
   text-align:center;
   box-shadow:0 10px 30px rgba(0,0,0,0.08);
   z-index:1;
+  position:relative;
 }
 
+/* INPUT */
 input{
   width:100%;
   padding:10px;
   border-radius:10px;
-  border:1px solid #ddd;
+  border:1px solid #d6e6ff;
   outline:none;
-  background:rgba(255,255,255,0.8);
+  background:rgba(255,255,255,0.85);
 }
 
+/* BUTTON */
 button{
   margin-top:10px;
   padding:10px;
+  width:100%;
   border:none;
   border-radius:10px;
-  background:#4a6fa5;
+  background:#5f88c7;
   color:white;
   cursor:pointer;
   transition:0.2s;
@@ -106,28 +107,36 @@ button:hover{
   transform:scale(1.05);
 }
 
-/* 💖 RESULT BOX */
+/* 💌 RESULT */
 .result{
   margin-top:15px;
-  font-size:13px;
   text-align:left;
-  line-height:1.6;
-  color:#333;
+  font-size:13px;
+  color:#2c3e50;
+  line-height:1.5;
 }
 
+/* 📦 BOX */
 .box{
-  margin-top:10px;
+  margin-top:8px;
   padding:10px;
   border-radius:12px;
-  background:rgba(255,255,255,0.7);
-  backdrop-filter: blur(8px);
+  background:rgba(255,255,255,0.75);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(95,136,199,0.2);
+}
+
+/* TITLE */
+h3{
+  color:#2c3e50;
+  margin-bottom:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🌐 NAVBAR -->
+<!-- 🌐 NAV -->
 <div class="nav">
   <a href="index.html">🏠 Home</a>
   <a href="curhat.html">💌 Curhat</a>
@@ -135,12 +144,11 @@ button:hover{
   <a href="dashboard.html">🧑‍💻 Admin</a>
 </div>
 
-<!-- 💌 CARD -->
+<!-- 💙 CARD -->
 <div class="card">
   <h3>💬 Cek Balasan</h3>
 
   <input id="kode" placeholder="masukkan kode GLTZ">
-
   <button onclick="cek()">lihat</button>
 
   <div id="hasil" class="result"></div>
@@ -151,7 +159,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDzPenfYo2",
+  apiKey: "AIzaSyDzPenfYo",
   authDomain: "dear-girletterz-a2c37.firebaseapp.com",
   projectId: "dear-girletterz-a2c37"
 };
@@ -165,17 +173,17 @@ window.cek = async function(){
   const snap = await getDoc(doc(db,"curhat",kode));
 
   if(!snap.exists()){
-    document.getElementById("hasil").innerHTML="❌ kode tidak ditemukan";
+    document.getElementById("hasil").innerHTML = "❌ kode tidak ditemukan";
     return;
   }
 
   let d = snap.data();
 
   document.getElementById("hasil").innerHTML = `
-    💌 <b>Curhat:</b>
+    💌 Curhat:
     <div class="box">${d.isi}</div>
 
-    💬 <b>Balasan:</b>
+    💬 Balasan:
     <div class="box">${d.balasan || "belum ada balasan"}</div>
   `;
 }
